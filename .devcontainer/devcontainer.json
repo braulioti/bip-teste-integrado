@@ -1,0 +1,35 @@
+{
+  "name": "bip-teste-integrado",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "runServices": ["devcontainer", "postgres", "liquibase"],
+  "workspaceFolder": "/workspaces/bip-teste-integrado",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "vscode",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "forwardPorts": [4200, 8080, 5432],
+  "portsAttributes": {
+    "4200": {
+      "label": "Frontend Angular",
+      "onAutoForward": "openBrowser"
+    },
+    "8080": {
+      "label": "Backend Spring Boot",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "angular.ng-template",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

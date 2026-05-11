@@ -1,0 +1,59 @@
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    volumes:
+      - ..:/workspaces/bip-teste-integrado:cached
+      - maven-cache:/home/vscode/.m2
+      - npm-cache:/home/vscode/.npm
+    environment:
+      SERVER_PORT: "8080"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bip_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bip_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bip_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  liquibase:
+    build:
+      context: ..
+      dockerfile: db/liquibase/Dockerfile
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ..:/workspace:cached
+    command:
+      - --url=jdbc:postgresql://postgres:5432/bip_db
+      - --changeLogFile=/workspace/db/changelog/db.changelog-master.yaml
+      - --username=postgres
+      - --password=postgres
+      - --contexts=seed
+      - update
+
+volumes:
+  postgres-data:
+  maven-cache:
+  npm-cache:
