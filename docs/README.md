@@ -4,6 +4,7 @@
 [![Sobre: brau.io](https://img.shields.io/badge/Contato-Br%C3%A1ulio%20Figueiredo-blue)](https://brau.io)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ea7b6251527343e3a68b90faf52c5a92)](https://app.codacy.com/gh/braulioti/bip-teste-integrado/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Github Actions](https://github.com/braulioti/bip-teste-integrado/actions/workflows/deploy.yml/badge.svg)](https://github.com/braulioti/bip-teste-integrado/actions)
+[![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)](https://teste-bip-api.brau.io/swagger-ui.html)
 [![Java](https://img.shields.io/badge/JDK-8%2B-green)](https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html)
 [![Liquibase](https://img.shields.io/badge/-Liquibase-2962FF?style=flat&logo=liquibase&logoColor=white)](https://www.liquibase.com/)
 [![CloudFlare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)](https://www.cloudflare.com/pt-br/)
@@ -22,6 +23,7 @@ Este é um teste proposto pela BIP Brasil. Neste teste você vai encontrar boas 
   - [Pre-requisitos](#pre-requisitos)
   - [Como abrir o projeto no container](#como-abrir-o-projeto-no-container)
   - [Como executar a aplicacao](#como-executar-a-aplicacao)
+- [URLs do Projeto](#urls-do-projeto)
 - [Testes e Cobertura](#testes-e-cobertura)
   - [Backend com JUnit](#backend-com-junit)
   - [Frontend com Jest](#frontend-com-jest)
@@ -80,6 +82,13 @@ Depois disso:
 - backend: `http://localhost:8080`
 
 Dentro do container, o backend ja estara configurado para usar o banco em `postgres:5432`.
+
+## URLs do Projeto
+
+- Frontend: [https://teste-bip.brau.io/](https://teste-bip.brau.io/)
+- Backend: [https://teste-bip-api.brau.io/](https://teste-bip-api.brau.io/)
+- Swagger: [https://teste-bip-api.brau.io/swagger-ui.html](https://teste-bip-api.brau.io/swagger-ui.html)
+- Qualidade e cobertura de codigo: [https://app.codacy.com/gh/braulioti/bip-teste-integrado/dashboard](https://app.codacy.com/gh/braulioti/bip-teste-integrado/dashboard)
 
 ## Testes e Cobertura
 
