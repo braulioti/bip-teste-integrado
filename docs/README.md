@@ -106,7 +106,10 @@ POSTGRES_PASSWORD=troque-esta-senha
 POSTGRES_PORT=5432
 BACKEND_PORT=8080
 FRONTEND_PORT=80
+FRONTEND_API_BASE_URL=/api/v1/beneficios
 ```
+
+`FRONTEND_API_BASE_URL` e carregada em runtime pelo container do frontend. Em producao, o valor padrao `/api/v1/beneficios` funciona bem quando o Nginx do frontend faz proxy para o backend no mesmo dominio.
 
 ### Preparo minimo do servidor
 

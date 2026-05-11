@@ -39,6 +39,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      FRONTEND_API_BASE_URL: ${FRONTEND_API_BASE_URL:-/api/v1/beneficios}
     depends_on:
       - backend
     ports:

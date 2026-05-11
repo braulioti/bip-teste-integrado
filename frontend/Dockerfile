@@ -12,6 +12,9 @@ RUN npm run build && mkdir -p /app/dist-output && if [ -d /app/dist/frontend/bro
 FROM nginx:1.27-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker-entrypoint.sh /docker-entrypoint.d/40-env.sh
 COPY --from=build /app/dist-output/ /usr/share/nginx/html/
+
+RUN chmod +x /docker-entrypoint.d/40-env.sh
 
 EXPOSE 80

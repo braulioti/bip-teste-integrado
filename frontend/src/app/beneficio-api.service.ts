@@ -34,10 +34,14 @@ interface ApiErrorResponse {
   message?: string;
 }
 
+interface FrontendRuntimeConfig {
+  API_BASE_URL?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class BeneficioApiService {
   private readonly http = inject(HttpClient);
-  private readonly apiBaseUrl = '/api/v1/beneficios';
+  private readonly apiBaseUrl = this.resolveApiBaseUrl();
   private readonly transferUrl = `${this.apiBaseUrl}/transferencias`;
 
   list(): Observable<Beneficio[]> {
@@ -67,5 +71,13 @@ export class BeneficioApiService {
     }
 
     return 'Nao foi possivel concluir a operacao.';
+  }
+
+  private resolveApiBaseUrl(): string {
+    const runtimeWindow = globalThis as typeof globalThis & {
+      __env?: FrontendRuntimeConfig;
+    };
+
+    return runtimeWindow.__env?.API_BASE_URL || '/api/v1/beneficios';
   }
 }
