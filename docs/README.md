@@ -89,6 +89,7 @@ Dentro do container, o backend ja estara configurado para usar o banco em `postg
 - Backend: [https://teste-bip-api.brau.io/](https://teste-bip-api.brau.io/)
 - Swagger: [https://teste-bip-api.brau.io/swagger-ui.html](https://teste-bip-api.brau.io/swagger-ui.html)
 - Qualidade e cobertura de codigo: [https://app.codacy.com/gh/braulioti/bip-teste-integrado/dashboard](https://app.codacy.com/gh/braulioti/bip-teste-integrado/dashboard)
+- Kanban de todas as etapas: [https://github.com/users/braulioti/projects/11](https://github.com/users/braulioti/projects/11)
 
 ## Testes e Cobertura
 
