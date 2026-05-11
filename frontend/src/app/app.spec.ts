@@ -62,7 +62,6 @@ describe('App', () => {
       },
     ]);
     await fixture.whenStable();
-    fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
     const cards = compiled.querySelectorAll('.beneficio-card');
