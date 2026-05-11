@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import {
   Beneficio,
@@ -247,9 +247,7 @@ export class App implements OnInit {
     );
   }
 
-  fieldError(form: FormGroup, fieldName: string): string {
-    const control = form.get(fieldName);
-
+  fieldError(control: AbstractControl | null): string {
     if (!control || !control.touched || !control.errors) {
       return '';
     }

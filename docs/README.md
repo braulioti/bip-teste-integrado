@@ -3,6 +3,7 @@
 
 [![Sobre: brau.io](https://img.shields.io/badge/Contato-Br%C3%A1ulio%20Figueiredo-blue)](https://brau.io)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8d587cef062549b9af40f1d3c1c74c0d)](https://www.codacy.com/app/braulioti/Import-Scripts?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=braulioti/Import-Scripts&amp;utm_campaign=Badge_Grade)
+[![Github Actions](https://github.com/braulioti/bip-teste-integrado/actions/workflows/deploy.yml/badge.svg)](https://github.com/braulioti/bip-teste-integrado/actions)
 [![Java](https://img.shields.io/badge/JDK-8%2B-green)](https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html)
 [![Liquibase](https://img.shields.io/badge/-Liquibase-2962FF?style=flat&logo=liquibase&logoColor=white)](https://www.liquibase.com/)
 [![CloudFlare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)](https://www.cloudflare.com/pt-br/)
