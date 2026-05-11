@@ -10,6 +10,8 @@ jobs:
   tests-and-coverage:
     name: Backend and frontend tests
     runs-on: ubuntu-latest
+    env:
+      CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -60,14 +62,14 @@ jobs:
             frontend/coverage/cobertura-coverage.xml
 
       - name: Run Codacy analysis
-        if: ${{ secrets.CODACY_PROJECT_TOKEN != '' }}
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
         uses: codacy/codacy-analysis-cli-action@v4
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          project-token: ${{ env.CODACY_PROJECT_TOKEN }}
 
       - name: Upload coverage to Codacy
-        if: ${{ secrets.CODACY_PROJECT_TOKEN != '' }}
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          project-token: ${{ env.CODACY_PROJECT_TOKEN }}
           coverage-reports: backend-module/target/site/jacoco/jacoco.xml,frontend/coverage/lcov.info
