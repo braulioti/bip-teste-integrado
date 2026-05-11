@@ -45,8 +45,8 @@
         <label class="field">
           <span>Nome</span>
           <input type="text" formControlName="nome" placeholder="Ex.: Vale alimentacao" />
-          @if (fieldError(createForm, 'nome')) {
-            <small class="field-error">{{ fieldError(createForm, 'nome') }}</small>
+          @if (fieldError(createForm.controls.nome)) {
+            <small class="field-error">{{ fieldError(createForm.controls.nome) }}</small>
           }
         </label>
 
@@ -63,8 +63,8 @@
           <label class="field">
             <span>Valor</span>
             <input type="number" min="0" step="0.01" formControlName="valor" />
-            @if (fieldError(createForm, 'valor')) {
-              <small class="field-error">{{ fieldError(createForm, 'valor') }}</small>
+            @if (fieldError(createForm.controls.valor)) {
+              <small class="field-error">{{ fieldError(createForm.controls.valor) }}</small>
             }
           </label>
 
@@ -179,8 +179,8 @@
         <label class="field">
           <span>Nome</span>
           <input type="text" formControlName="nome" />
-          @if (fieldError(editForm, 'nome')) {
-            <small class="field-error">{{ fieldError(editForm, 'nome') }}</small>
+          @if (fieldError(editForm.controls.nome)) {
+            <small class="field-error">{{ fieldError(editForm.controls.nome) }}</small>
           }
         </label>
 
@@ -193,8 +193,8 @@
           <label class="field">
             <span>Valor</span>
             <input type="number" min="0" step="0.01" formControlName="valor" />
-            @if (fieldError(editForm, 'valor')) {
-              <small class="field-error">{{ fieldError(editForm, 'valor') }}</small>
+            @if (fieldError(editForm.controls.valor)) {
+              <small class="field-error">{{ fieldError(editForm.controls.valor) }}</small>
             }
           </label>
 
@@ -271,9 +271,9 @@
               <option [value]="beneficio.id">{{ beneficio.nome }}</option>
             }
           </select>
-          @if (fieldError(transferForm, 'beneficioDestinoId')) {
+          @if (fieldError(transferForm.controls.beneficioDestinoId)) {
             <small class="field-error">
-              {{ fieldError(transferForm, 'beneficioDestinoId') }}
+              {{ fieldError(transferForm.controls.beneficioDestinoId) }}
             </small>
           }
         </label>
@@ -281,8 +281,8 @@
         <label class="field">
           <span>Valor da transferencia</span>
           <input type="number" min="0.01" step="0.01" formControlName="valor" />
-          @if (fieldError(transferForm, 'valor')) {
-            <small class="field-error">{{ fieldError(transferForm, 'valor') }}</small>
+          @if (fieldError(transferForm.controls.valor)) {
+            <small class="field-error">{{ fieldError(transferForm.controls.valor) }}</small>
           }
         </label>
 
