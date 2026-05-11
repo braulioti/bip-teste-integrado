@@ -19,6 +19,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build backend modules
+        run: mvn -B -pl backend-module -am clean package
+
       - name: Assemble deployment bundle
         run: |
           set -eu
