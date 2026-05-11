@@ -11,6 +11,8 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html)
 [![Docker](https://img.shields.io/badge/docker-257bd6?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![JUnit](https://img.shields.io/badge/JUnit-5-25A162?style=for-the-badge&logo=junit5&logoColor=white)](https://junit.org/junit5/)
+[![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)](https://jestjs.io/)
 
 Este é um teste proposto pela BIP Brasil. Neste teste você vai encontrar boas práticas de desenvolvimento de projeto Java.
 
@@ -20,6 +22,10 @@ Este é um teste proposto pela BIP Brasil. Neste teste você vai encontrar boas 
   - [Pre-requisitos](#pre-requisitos)
   - [Como abrir o projeto no container](#como-abrir-o-projeto-no-container)
   - [Como executar a aplicacao](#como-executar-a-aplicacao)
+- [Testes e Cobertura](#testes-e-cobertura)
+  - [Backend com JUnit](#backend-com-junit)
+  - [Frontend com Jest](#frontend-com-jest)
+  - [Codacy e relatorios](#codacy-e-relatorios)
 - [Deploy Github Actions](#deploy-github-actions)
   - [Como o deploy funciona](#como-o-deploy-funciona)
   - [Secrets necessarios no GitHub](#secrets-necessarios-no-github)
@@ -74,6 +80,53 @@ Depois disso:
 - backend: `http://localhost:8080`
 
 Dentro do container, o backend ja estara configurado para usar o banco em `postgres:5432`.
+
+## Testes e Cobertura
+
+O projeto agora possui testes unitarios no backend com JUnit 5 e Mockito, e testes no frontend com Jest. A cobertura gerada localmente e no CI e enviada ao Codacy pelo workflow `.github/workflows/quality.yml`.
+
+### Backend com JUnit
+
+Para executar os testes do backend e gerar cobertura JaCoCo:
+
+```bash
+mvn -pl backend-module -am verify
+```
+
+Arquivos gerados:
+
+- resultados JUnit: `backend-module/target/surefire-reports/`
+- cobertura JaCoCo: `backend-module/target/site/jacoco/jacoco.xml`
+
+### Frontend com Jest
+
+Dentro da pasta `frontend`, use:
+
+```bash
+npm test
+```
+
+Para gerar cobertura e relatorio JUnit no formato de CI:
+
+```bash
+npm run test:ci
+```
+
+Arquivos gerados:
+
+- resultados Jest/JUnit: `frontend/reports/jest/junit.xml`
+- cobertura LCOV: `frontend/coverage/lcov.info`
+- cobertura Cobertura: `frontend/coverage/cobertura-coverage.xml`
+
+### Codacy e relatorios
+
+O workflow `quality.yml` executa testes do backend e frontend, publica os relatorios como artifacts do GitHub Actions e envia a cobertura ao Codacy.
+
+Para habilitar o envio ao Codacy, configure o secret:
+
+- `CODACY_PROJECT_TOKEN`: token do projeto no Codacy
+
+Os artefatos gerados pelo workflow incluem os relatórios de testes de back e front, enquanto o Codacy recebe os arquivos de cobertura JaCoCo e LCOV.
 
 ## Deploy Github Actions
 

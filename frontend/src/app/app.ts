@@ -18,6 +18,7 @@ import {
 export class App implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly beneficioApi = inject(BeneficioApiService);
+  private hasRetriedInitialLoad = false;
 
   readonly title = 'Gestao de Beneficios';
 
@@ -67,6 +68,11 @@ export class App implements OnInit {
         },
         error: (error) => {
           this.showError(this.beneficioApi.getErrorMessage(error));
+
+          if (!this.hasRetriedInitialLoad && this.beneficios.length === 0) {
+            this.hasRetriedInitialLoad = true;
+            globalThis.setTimeout(() => this.loadBeneficios(), 500);
+          }
         },
       });
   }
@@ -77,6 +83,7 @@ export class App implements OnInit {
       return;
     }
 
+    this.closeAuxiliaryModals();
     this.createSubmitting = true;
     this.feedback = null;
 
@@ -101,6 +108,7 @@ export class App implements OnInit {
   }
 
   openEditModal(beneficio: Beneficio): void {
+    this.closeAuxiliaryModals();
     this.editingBeneficio = beneficio;
     this.editForm.reset({
       nome: beneficio.nome,
@@ -152,6 +160,7 @@ export class App implements OnInit {
   }
 
   openDeleteModal(beneficio: Beneficio): void {
+    this.closeAuxiliaryModals();
     this.deletingBeneficio = beneficio;
   }
 
@@ -167,6 +176,7 @@ export class App implements OnInit {
     const beneficioId = this.deletingBeneficio.id;
     const beneficioNome = this.deletingBeneficio.nome;
 
+    this.closeDeleteModal();
     this.deleteSubmitting = true;
     this.feedback = null;
 
@@ -176,7 +186,6 @@ export class App implements OnInit {
       .subscribe({
         next: () => {
           this.beneficios = this.beneficios.filter(({ id }) => id !== beneficioId);
-          this.closeDeleteModal();
           this.showSuccess(`Beneficio "${beneficioNome}" excluido com sucesso.`);
         },
         error: (error) => {
@@ -186,6 +195,7 @@ export class App implements OnInit {
   }
 
   openTransferModal(beneficio: Beneficio): void {
+    this.closeAuxiliaryModals();
     this.transferringBeneficio = beneficio;
     this.transferForm.reset({
       beneficioDestinoId: 0,
@@ -308,5 +318,19 @@ export class App implements OnInit {
 
   private showError(message: string): void {
     this.feedback = { type: 'error', message };
+  }
+
+  private closeAuxiliaryModals(): void {
+    if (this.editingBeneficio) {
+      this.closeEditModal();
+    }
+
+    if (this.deletingBeneficio) {
+      this.closeDeleteModal();
+    }
+
+    if (this.transferringBeneficio) {
+      this.closeTransferModal();
+    }
   }
 }

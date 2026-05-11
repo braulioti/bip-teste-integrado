@@ -15,15 +15,6 @@
         tela.
       </p>
     </div>
-
-    <button
-      type="button"
-      class="secondary-button"
-      (click)="loadBeneficios()"
-      [disabled]="loading"
-    >
-      {{ loading ? 'Atualizando...' : 'Atualizar lista' }}
-    </button>
   </section>
 
   @if (feedback) {
@@ -33,8 +24,8 @@
       [class.alert-success]="feedback.type === 'success'"
     >
       <span>{{ feedback.message }}</span>
-      <button type="button" class="alert-close" (click)="dismissFeedback()">
-        Fechar
+      <button type="button" class="alert-close" (click)="dismissFeedback()" aria-label="Fechar mensagem">
+        X
       </button>
     </section>
   }
@@ -113,7 +104,7 @@
             <article class="beneficio-card">
               <div class="beneficio-main">
                 <div class="beneficio-title-row">
-                  <h3>{{ beneficio.nome }}</h3>
+                  <h3>#{{ beneficio.id }} - {{ beneficio.nome }} ({{ formatCurrency(beneficio.valor) }})</h3>
                   <span class="status-pill" [class.inactive]="!beneficio.ativo">
                     {{ beneficio.ativo ? 'Ativo' : 'Inativo' }}
                   </span>
@@ -122,21 +113,6 @@
                 <p class="beneficio-description">
                   {{ beneficio.descricao || 'Sem descricao cadastrada.' }}
                 </p>
-
-                <dl class="beneficio-meta">
-                  <div>
-                    <dt>ID</dt>
-                    <dd>#{{ beneficio.id }}</dd>
-                  </div>
-                  <div>
-                    <dt>Valor</dt>
-                    <dd>{{ formatCurrency(beneficio.valor) }}</dd>
-                  </div>
-                  <div>
-                    <dt>Versao</dt>
-                    <dd>{{ beneficio.version }}</dd>
-                  </div>
-                </dl>
               </div>
 
               <div class="card-actions">
@@ -179,7 +155,9 @@
           <p class="panel-kicker">Edicao</p>
           <h2>Editar beneficio</h2>
         </div>
-        <button type="button" class="icon-button" (click)="closeEditModal()">Fechar</button>
+        <button type="button" class="icon-button" (click)="closeEditModal()" aria-label="Fechar modal">
+          X
+        </button>
       </div>
 
       <form class="form-grid" [formGroup]="editForm" (ngSubmit)="updateBeneficio()">
@@ -235,14 +213,16 @@
           <p class="panel-kicker">Exclusao</p>
           <h2>Excluir beneficio</h2>
         </div>
-        <button type="button" class="icon-button" (click)="closeDeleteModal()">Fechar</button>
+        <button type="button" class="icon-button" (click)="closeDeleteModal()" aria-label="Fechar modal">
+          X
+        </button>
       </div>
 
       <p class="modal-copy">
         Deseja realmente excluir o beneficio <strong>{{ deletingBeneficio.nome }}</strong>?
       </p>
 
-      <div class="modal-actions">
+      <div class="modal-actions delete-modal-actions">
         <button type="button" class="secondary-button" (click)="closeDeleteModal()">
           Cancelar
         </button>
@@ -262,7 +242,9 @@
           <p class="panel-kicker">Transferencia</p>
           <h2>Transferir valor</h2>
         </div>
-        <button type="button" class="icon-button" (click)="closeTransferModal()">Fechar</button>
+        <button type="button" class="icon-button" (click)="closeTransferModal()" aria-label="Fechar modal">
+          X
+        </button>
       </div>
 
       <p class="modal-copy">

@@ -43,6 +43,7 @@ frontend/.angular/cache
 frontend/.sass-cache/
 frontend/connect.lock
 frontend/coverage
+frontend/reports
 frontend/libpeerconnection.log
 frontend/testem.log
 frontend/typings

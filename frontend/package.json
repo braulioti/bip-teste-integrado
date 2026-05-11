@@ -6,7 +6,9 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "jest --config jest.config.js --runInBand",
+    "test:watch": "jest --config jest.config.js --watch",
+    "test:ci": "jest --config jest.config.js --runInBand --coverage --ci"
   },
   "private": true,
   "packageManager": "npm@10.9.4",

@@ -1,0 +1,9 @@
+---
+exclude_paths:
+  - "**/node_modules/**"
+  - "**/dist/**"
+  - "**/coverage/**"
+  - "**/reports/**"
+  - "**/target/**"
+  - "frontend/.angular/**"
+  - "frontend/out-tsc/**"
