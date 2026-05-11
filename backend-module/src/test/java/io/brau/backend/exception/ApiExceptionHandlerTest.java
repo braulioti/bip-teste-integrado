@@ -15,7 +15,7 @@ class ApiExceptionHandlerTest {
 
     @Test
     void shouldReturnNotFoundResponse() {
-        ResponseEntity<ApiExceptionHandler.ApiErrorResponse> response =
+        ResponseEntity<ApiErrorResponse> response =
                 handler.handleNotFound(new BeneficioNotFoundException(15L));
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -25,7 +25,7 @@ class ApiExceptionHandlerTest {
 
     @Test
     void shouldReturnBadRequestForIllegalArgument() {
-        ResponseEntity<ApiExceptionHandler.ApiErrorResponse> response =
+        ResponseEntity<ApiErrorResponse> response =
                 handler.handleBadRequest(new IllegalArgumentException("Valor invalido."));
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -34,7 +34,7 @@ class ApiExceptionHandlerTest {
 
     @Test
     void shouldReturnBadRequestForConstraintViolation() {
-        ResponseEntity<ApiExceptionHandler.ApiErrorResponse> response =
+        ResponseEntity<ApiErrorResponse> response =
                 handler.handleBadRequest(new ConstraintViolationException("Violacao de regra.", Set.of()));
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -43,7 +43,7 @@ class ApiExceptionHandlerTest {
 
     @Test
     void shouldReturnConflictResponse() {
-        ResponseEntity<ApiExceptionHandler.ApiErrorResponse> response =
+        ResponseEntity<ApiErrorResponse> response =
                 handler.handleConflict(new IllegalStateException("Transferencia nao permitida."));
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());

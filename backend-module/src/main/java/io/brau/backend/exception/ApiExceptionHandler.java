@@ -41,7 +41,4 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(status)
                 .body(new ApiErrorResponse(status.value(), message, Instant.now().toString()));
     }
-
-    public record ApiErrorResponse(int status, String message, String timestamp) {
-    }
 }

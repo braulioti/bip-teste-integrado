@@ -18,7 +18,6 @@ import {
 export class App implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly beneficioApi = inject(BeneficioApiService);
-  private hasRetriedInitialLoad = false;
 
   readonly title = 'Gestao de Beneficios';
 
@@ -68,11 +67,6 @@ export class App implements OnInit {
         },
         error: (error) => {
           this.showError(this.beneficioApi.getErrorMessage(error));
-
-          if (!this.hasRetriedInitialLoad && this.beneficios.length === 0) {
-            this.hasRetriedInitialLoad = true;
-            globalThis.setTimeout(() => this.loadBeneficios(), 500);
-          }
         },
       });
   }

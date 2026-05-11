@@ -1,5 +1,6 @@
 package io.brau.backend.controller;
 
+import io.brau.backend.controller.docs.BeneficioTransferControllerDocs;
 import io.brau.backend.dto.BeneficioTransferRequest;
 import io.brau.backend.dto.BeneficioTransferResponse;
 import io.brau.backend.service.BeneficioService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/beneficios/transferencias")
-public class BeneficioTransferController {
+public class BeneficioTransferController implements BeneficioTransferControllerDocs {
     private final BeneficioService beneficioService;
 
     public BeneficioTransferController(BeneficioService beneficioService) {
@@ -20,6 +21,7 @@ public class BeneficioTransferController {
     }
 
     @PostMapping
+    @Override
     public ResponseEntity<BeneficioTransferResponse> transfer(@Valid @RequestBody BeneficioTransferRequest request) {
         return ResponseEntity.ok(beneficioService.transfer(request));
     }

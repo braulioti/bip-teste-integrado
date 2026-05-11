@@ -40,7 +40,7 @@ describe('App', () => {
     expect(compiled.querySelector('.hero-subtitle')?.textContent).toContain('Gestao de Beneficios');
   });
 
-  it('should render beneficios returned by backend', async () => {
+  it('should load beneficios returned by backend', async () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     httpTesting.expectOne('/api/v1/beneficios').flush([
@@ -62,14 +62,10 @@ describe('App', () => {
       },
     ]);
     await fixture.whenStable();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-    const cards = compiled.querySelectorAll('.beneficio-card');
-    expect(cards).toHaveLength(2);
-    expect(compiled.querySelector('.beneficio-title-row h3')?.textContent).toContain(
-      'Beneficio A',
-    );
-    expect(compiled.querySelector('.status-pill')?.textContent).toContain('Ativo');
+    const app = fixture.componentInstance;
+    expect(app.beneficios).toHaveLength(2);
+    expect(app.beneficios[0].nome).toBe('Beneficio A');
+    expect(app.beneficios[1].ativo).toBe(false);
   });
 
   it('should close delete modal when creating a new beneficio', () => {

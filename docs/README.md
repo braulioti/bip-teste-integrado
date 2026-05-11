@@ -2,7 +2,7 @@
 ### Projeto de teste da BIP Brasil
 
 [![Sobre: brau.io](https://img.shields.io/badge/Contato-Br%C3%A1ulio%20Figueiredo-blue)](https://brau.io)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8d587cef062549b9af40f1d3c1c74c0d)](https://www.codacy.com/app/braulioti/Import-Scripts?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=braulioti/Import-Scripts&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ea7b6251527343e3a68b90faf52c5a92)](https://app.codacy.com/gh/braulioti/bip-teste-integrado/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Github Actions](https://github.com/braulioti/bip-teste-integrado/actions/workflows/deploy.yml/badge.svg)](https://github.com/braulioti/bip-teste-integrado/actions)
 [![Java](https://img.shields.io/badge/JDK-8%2B-green)](https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html)
 [![Liquibase](https://img.shields.io/badge/-Liquibase-2962FF?style=flat&logo=liquibase&logoColor=white)](https://www.liquibase.com/)

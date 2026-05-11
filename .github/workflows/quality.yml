@@ -59,6 +59,12 @@ jobs:
             frontend/coverage/lcov.info
             frontend/coverage/cobertura-coverage.xml
 
+      - name: Run Codacy analysis
+        if: ${{ secrets.CODACY_PROJECT_TOKEN != '' }}
+        uses: codacy/codacy-analysis-cli-action@v4
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+
       - name: Upload coverage to Codacy
         if: ${{ secrets.CODACY_PROJECT_TOKEN != '' }}
         uses: codacy/codacy-coverage-reporter-action@v1
