@@ -51,6 +51,8 @@ Use `.env.production.example` como base e crie um arquivo `.env` dentro de `DEPL
 POSTGRES_DB=bip_db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=troque-esta-senha
+POSTGRES_PORT=5432
+BACKEND_PORT=8080
 FRONTEND_PORT=80
 ```
 
@@ -61,7 +63,9 @@ O servidor precisa ter:
 - Docker instalado
 - plugin `docker compose` instalado
 - usuario de deploy com permissao para executar Docker
+- porta da API liberada apenas se voce realmente quiser acesso externo ao backend via `BACKEND_PORT`
 - porta HTTP liberada para o valor configurado em `FRONTEND_PORT`
+- porta do banco liberada apenas se voce realmente quiser acesso externo ao PostgreSQL via `POSTGRES_PORT`
 
 ### Deploy manual
 
