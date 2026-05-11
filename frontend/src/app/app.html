@@ -1,8 +1,15 @@
 <main class="page">
   <section class="hero">
     <div>
-      <p class="eyebrow">BIP Brasil</p>
-      <h1>{{ title }}</h1>
+      <div class="hero-brand">
+        <img
+          class="hero-logo"
+          src="https://bipbrasil.com.br/wp-content/uploads/2022/12/logo-bip-consulting-red.png"
+          alt="Logo da Bip Brasil"
+        />
+        <h1>Bip Brasil</h1>
+      </div>
+      <p class="hero-subtitle">{{ title }}</p>
       <p class="hero-copy">
         Cadastre, edite, exclua e transfira valores entre beneficios em uma unica
         tela.
@@ -72,7 +79,7 @@
             <span>Status</span>
             <label class="toggle" for="create-ativo">
               <input id="create-ativo" type="checkbox" formControlName="ativo" />
-              <span>Beneficio ativo</span>
+              <span>Ativo</span>
             </label>
           </div>
         </div>
@@ -202,7 +209,7 @@
             <span>Status</span>
             <label class="toggle" for="edit-ativo">
               <input id="edit-ativo" type="checkbox" formControlName="ativo" />
-              <span>Beneficio ativo</span>
+              <span>Ativo</span>
             </label>
           </div>
         </div>

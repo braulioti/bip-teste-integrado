@@ -36,6 +36,7 @@ describe('App', () => {
     httpTesting.expectOne('/api/v1/beneficios').flush([]);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Gestao de Beneficios');
+    expect(compiled.querySelector('.hero-brand h1')?.textContent).toContain('Bip Brasil');
+    expect(compiled.querySelector('.hero-subtitle')?.textContent).toContain('Gestao de Beneficios');
   });
 });

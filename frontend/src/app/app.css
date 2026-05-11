@@ -1,11 +1,16 @@
 :host {
+  --brand-primary: #da291c;
+  --brand-primary-dark: #b52016;
+  --brand-primary-soft: #f9d7d4;
+  --brand-primary-softer: #fff1f0;
+  --brand-primary-border: #efb3ae;
   display: block;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: #0f172a;
   background:
-    radial-gradient(circle at top, rgba(59, 130, 246, 0.1), transparent 30%),
-    linear-gradient(180deg, #f8fbff 0%, #eef4fb 48%, #f7f9fc 100%);
+    radial-gradient(circle at top, rgba(218, 41, 28, 0.08), transparent 30%),
+    linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 48%, #dfe3e8 100%);
 }
 
 button,
@@ -28,7 +33,7 @@ button {
 .hero,
 .panel,
 .modal {
-  border: 1px solid #dbe4f0;
+  border: 1px solid #ecd7d5;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(18px);
@@ -43,10 +48,23 @@ button {
   border-radius: 1.5rem;
 }
 
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-logo {
+  width: clamp(96px, 14vw, 140px);
+  height: auto;
+  display: block;
+}
+
 .eyebrow,
 .panel-kicker {
   margin: 0 0 0.5rem;
-  color: #2563eb;
+  color: var(--brand-primary);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -61,7 +79,14 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+.hero-subtitle {
+  margin: 0.6rem 0 0;
+  color: #475569;
+  font-size: clamp(1.1rem, 2.3vw, 1.5rem);
+  font-weight: 700;
 }
 
 h2 {
@@ -114,8 +139,8 @@ h3 {
 }
 
 .pill {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: var(--brand-primary-soft);
+  color: var(--brand-primary-dark);
 }
 
 .status-pill {
@@ -161,8 +186,8 @@ h3 {
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(218, 41, 28, 0.16);
 }
 
 .checkbox-field {
@@ -216,16 +241,16 @@ h3 {
 }
 
 .primary-button {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
   color: #ffffff;
 }
 
 .secondary-button,
 .icon-button,
 .alert-close {
-  background: #eff6ff;
-  color: #1e3a8a;
-  border: 1px solid #dbeafe;
+  background: var(--brand-primary-softer);
+  color: var(--brand-primary-dark);
+  border: 1px solid var(--brand-primary-border);
 }
 
 .danger-button {
@@ -373,6 +398,10 @@ h3 {
 
   .hero {
     flex-direction: column;
+  }
+
+  .hero-brand {
+    align-items: flex-start;
   }
 
   .form-row,
