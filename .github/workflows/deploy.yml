@@ -1,0 +1,72 @@
+name: Deploy to server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Assemble deployment bundle
+        run: |
+          set -eu
+          rm -rf deploy_bundle
+          mkdir -p deploy_bundle
+          cp docker-compose.prod.yml deploy_bundle/docker-compose.prod.yml
+          cp -R backend-module deploy_bundle/backend-module
+          cp -R frontend deploy_bundle/frontend
+          rm -rf deploy_bundle/backend-module/target
+          rm -rf deploy_bundle/frontend/node_modules
+          rm -rf deploy_bundle/frontend/dist
+
+      - name: Ensure remote deploy directory exists
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: |
+            mkdir -p "${{ secrets.DEPLOY_PATH }}"
+
+      - name: Upload application bundle
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          source: "deploy_bundle/*"
+          target: ${{ secrets.DEPLOY_PATH }}
+          strip_components: 1
+
+      - name: Start production stack
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: |
+            set -eu
+            cd "${{ secrets.DEPLOY_PATH }}"
+
+            if [ ! -f .env ]; then
+              echo "Missing .env file in ${{ secrets.DEPLOY_PATH }}"
+              exit 1
+            fi
+
+            docker compose -f docker-compose.prod.yml --env-file .env up -d --build --remove-orphans
+            docker image prune -f
