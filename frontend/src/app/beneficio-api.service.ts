@@ -77,7 +77,28 @@ export class BeneficioApiService {
     const runtimeWindow = globalThis as typeof globalThis & {
       __env?: FrontendRuntimeConfig;
     };
+    const configuredBaseUrl = runtimeWindow.__env?.API_BASE_URL?.trim();
 
-    return runtimeWindow.__env?.API_BASE_URL || '/api/v1/beneficios';
+    if (!configuredBaseUrl) {
+      return '/api/v1/beneficios';
+    }
+
+    return this.normalizeApiBaseUrl(configuredBaseUrl);
+  }
+
+  private normalizeApiBaseUrl(baseUrl: string): string {
+    if (baseUrl.startsWith('/')) {
+      return baseUrl === '/' ? '/api/v1/beneficios' : baseUrl.replace(/\/+$/, '');
+    }
+
+    try {
+      const parsedUrl = new URL(baseUrl);
+      const normalizedPath =
+        parsedUrl.pathname === '/' ? '/api/v1/beneficios' : parsedUrl.pathname.replace(/\/+$/, '');
+
+      return `${parsedUrl.origin}${normalizedPath}`;
+    } catch {
+      return baseUrl.replace(/\/+$/, '') || '/api/v1/beneficios';
+    }
   }
 }

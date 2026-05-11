@@ -34,6 +34,21 @@ describe('BeneficioApiService', () => {
     httpTesting.expectOne('/custom/api/beneficios').flush([]);
   });
 
+  it('normalizes a host-only runtime API base URL to the beneficios endpoint', () => {
+    runtimeWindow.__env = { API_BASE_URL: 'https://teste-bip-api.brau.io/' };
+
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+
+    const service = TestBed.inject(BeneficioApiService);
+    httpTesting = TestBed.inject(HttpTestingController);
+
+    service.list().subscribe();
+
+    httpTesting.expectOne('https://teste-bip-api.brau.io/api/v1/beneficios').flush([]);
+  });
+
   it('falls back to the default API base URL', () => {
     TestBed.configureTestingModule({
       providers: [provideHttpClient(), provideHttpClientTesting()],
