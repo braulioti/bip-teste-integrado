@@ -3,9 +3,12 @@ FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 COPY pom.xml ./
-COPY src ./src
+COPY backend-module/pom.xml backend-module/pom.xml
+COPY ejb-module/pom.xml ejb-module/pom.xml
+COPY backend-module/src backend-module/src
+COPY ejb-module/src ejb-module/src
 
-RUN mvn -B -DskipTests clean package && cp target/*.jar app.jar
+RUN mvn -B -pl backend-module -am -DskipTests clean package && cp backend-module/target/*.jar app.jar
 
 FROM eclipse-temurin:17-jre-alpine
 

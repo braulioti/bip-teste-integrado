@@ -15,6 +15,10 @@ Este é um teste proposto pela BIP Brasil. Neste teste você vai encontrar boas 
 
 ## Table of Contents
 
+- [Desenvolvimento com Dev Container](#desenvolvimento-com-dev-container)
+  - [Pre-requisitos](#pre-requisitos)
+  - [Como abrir o projeto no container](#como-abrir-o-projeto-no-container)
+  - [Como executar a aplicacao](#como-executar-a-aplicacao)
 - [Deploy Github Actions](#deploy-github-actions)
   - [Como o deploy funciona](#como-o-deploy-funciona)
   - [Secrets necessarios no GitHub](#secrets-necessarios-no-github)
@@ -23,6 +27,52 @@ Este é um teste proposto pela BIP Brasil. Neste teste você vai encontrar boas 
   - [Deploy manual](#deploy-manual)
 - [Versionamento](#versionamento)
 - [Autor](#autor)
+
+## Desenvolvimento com Dev Container
+
+O projeto agora possui uma configuracao em `.devcontainer/` para padronizar o ambiente de desenvolvimento com Java 17, Maven, Node.js 22, Angular CLI, PostgreSQL e Liquibase.
+
+### Pre-requisitos
+
+- Docker Desktop instalado e em execucao
+- Cursor ou VS Code com suporte a Dev Containers
+
+### Como abrir o projeto no container
+
+1. Abra o repositorio no Cursor.
+2. Execute o comando `Dev Containers: Reopen in Container`.
+3. Aguarde a criacao da imagem e a execucao do `postCreateCommand`.
+
+Quando o container subir:
+
+- o servico `postgres` sera iniciado automaticamente
+- o servico `liquibase` aplicara `schema.sql` e `seed.sql`
+- as dependencias do Maven e do frontend serao instaladas
+
+### Como executar a aplicacao
+
+Abra dois terminais dentro do Dev Container.
+
+No primeiro terminal, suba o backend:
+
+```bash
+mvn -pl backend-module spring-boot:run
+```
+
+No segundo terminal, suba o frontend:
+
+```bash
+cd frontend
+npm start -- --host 0.0.0.0 --port 4200
+```
+
+Depois disso:
+
+- frontend: `http://localhost:4200`
+- backend: `http://localhost:8080`
+- postgres: `localhost:5432`
+
+Dentro do container, o backend ja estara configurado para usar o banco em `postgres:5432`.
 
 ## Deploy Github Actions
 

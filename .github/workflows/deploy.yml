@@ -24,11 +24,14 @@ jobs:
           set -eu
           rm -rf deploy_bundle
           mkdir -p deploy_bundle
+          cp pom.xml deploy_bundle/pom.xml
           cp docker-compose.prod.yml deploy_bundle/docker-compose.prod.yml
           cp -R db deploy_bundle/db
           cp -R backend-module deploy_bundle/backend-module
+          cp -R ejb-module deploy_bundle/ejb-module
           cp -R frontend deploy_bundle/frontend
           rm -rf deploy_bundle/backend-module/target
+          rm -rf deploy_bundle/ejb-module/target
           rm -rf deploy_bundle/frontend/node_modules
           rm -rf deploy_bundle/frontend/dist
 

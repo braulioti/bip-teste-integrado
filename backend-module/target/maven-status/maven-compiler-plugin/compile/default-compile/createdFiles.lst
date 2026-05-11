@@ -1,2 +1,13 @@
+io\brau\backend\integration\ejb\BeneficioEjbGatewayImpl.class
+io\brau\backend\controller\BeneficioController.class
+io\brau\backend\config\EjbModuleConfig.class
+io\brau\backend\controller\BeneficioTransferController.class
+io\brau\backend\dto\BeneficioResponse.class
+io\brau\backend\service\BeneficioService.class
+io\brau\backend\dto\BeneficioRequest.class
+io\brau\backend\dto\BeneficioTransferRequest.class
 io\brau\backend\BackendApplication.class
-io\brau\backend\BeneficioController.class
+io\brau\backend\exception\ApiExceptionHandler$ApiErrorResponse.class
+io\brau\backend\dto\BeneficioTransferResponse.class
+io\brau\backend\exception\ApiExceptionHandler.class
+io\brau\backend\integration\ejb\BeneficioEjbGateway.class

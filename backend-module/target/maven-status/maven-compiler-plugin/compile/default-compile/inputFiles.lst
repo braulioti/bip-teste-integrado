@@ -1,2 +1,12 @@
-E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\BeneficioController.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\integration\ejb\BeneficioEjbGatewayImpl.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\config\EjbModuleConfig.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\integration\ejb\BeneficioEjbGateway.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\exception\ApiExceptionHandler.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\service\BeneficioService.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\controller\BeneficioController.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\controller\BeneficioTransferController.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\dto\BeneficioTransferResponse.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\dto\BeneficioTransferRequest.java
 E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\BackendApplication.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\dto\BeneficioResponse.java
+E:\projetos\pessoal\bip-teste-integrado\backend-module\src\main\java\io\brau\backend\dto\BeneficioRequest.java
