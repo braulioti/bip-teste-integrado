@@ -60,7 +60,8 @@ services:
       - --url=jdbc:postgresql://postgres:5432/${POSTGRES_DB:-bip_db}
       - --username=${POSTGRES_USER:-postgres}
       - --password=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
-      - --changeLogFile=/liquibase/changelog/db/changelog/db.changelog-master.yaml
+      - --search-path=/liquibase/changelog/db
+      - --changeLogFile=changelog/db.changelog-master.yaml
       - update
 
 volumes:
