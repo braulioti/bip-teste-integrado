@@ -48,6 +48,7 @@ Quando o container subir:
 - o servico `postgres` sera iniciado automaticamente
 - o servico `liquibase` aplicara `schema.sql` e `seed.sql`
 - as dependencias do Maven e do frontend serao instaladas
+- o PostgreSQL ficara disponivel apenas na rede interna do devcontainer para evitar conflito com a porta `5432` da sua maquina
 
 ### Como executar a aplicacao
 
@@ -70,7 +71,6 @@ Depois disso:
 
 - frontend: `http://localhost:4200`
 - backend: `http://localhost:8080`
-- postgres: `localhost:5432`
 
 Dentro do container, o backend ja estara configurado para usar o banco em `postgres:5432`.
 
