@@ -1,18 +1,300 @@
-<main class="app-shell">
+<main class="page">
   <section class="hero">
-    <div class="badges">
-      <img
-        class="tech-badge"
-        src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"
-        alt="Badge do PostgreSQL"
-      />
+    <div>
+      <p class="eyebrow">BIP Brasil</p>
+      <h1>{{ title }}</h1>
+      <p class="hero-copy">
+        Cadastre, edite, exclua e transfira valores entre beneficios em uma unica
+        tela.
+      </p>
     </div>
-    <h1>{{ title }}</h1>
-    <p>Projeto Angular criado com sucesso na pasta <strong>frontend</strong>.</p>
 
-    <div class="actions">
-      <a href="https://angular.dev" target="_blank" rel="noopener">Documentacao</a>
-      <a href="https://angular.dev/tools/cli" target="_blank" rel="noopener">CLI</a>
-    </div>
+    <button
+      type="button"
+      class="secondary-button"
+      (click)="loadBeneficios()"
+      [disabled]="loading"
+    >
+      {{ loading ? 'Atualizando...' : 'Atualizar lista' }}
+    </button>
+  </section>
+
+  @if (feedback) {
+    <section
+      class="alert"
+      [class.alert-error]="feedback.type === 'error'"
+      [class.alert-success]="feedback.type === 'success'"
+    >
+      <span>{{ feedback.message }}</span>
+      <button type="button" class="alert-close" (click)="dismissFeedback()">
+        Fechar
+      </button>
+    </section>
+  }
+
+  <section class="content-grid">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="panel-kicker">Cadastro</p>
+          <h2>Novo beneficio</h2>
+        </div>
+      </div>
+
+      <form class="form-grid" [formGroup]="createForm" (ngSubmit)="createBeneficio()">
+        <label class="field">
+          <span>Nome</span>
+          <input type="text" formControlName="nome" placeholder="Ex.: Vale alimentacao" />
+          @if (fieldError(createForm, 'nome')) {
+            <small class="field-error">{{ fieldError(createForm, 'nome') }}</small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Descricao</span>
+          <textarea
+            rows="4"
+            formControlName="descricao"
+            placeholder="Detalhes opcionais do beneficio"
+          ></textarea>
+        </label>
+
+        <div class="form-row">
+          <label class="field">
+            <span>Valor</span>
+            <input type="number" min="0" step="0.01" formControlName="valor" />
+            @if (fieldError(createForm, 'valor')) {
+              <small class="field-error">{{ fieldError(createForm, 'valor') }}</small>
+            }
+          </label>
+
+          <div class="field checkbox-field">
+            <span>Status</span>
+            <label class="toggle" for="create-ativo">
+              <input id="create-ativo" type="checkbox" formControlName="ativo" />
+              <span>Beneficio ativo</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="primary-button" [disabled]="createSubmitting">
+          {{ createSubmitting ? 'Salvando...' : 'Cadastrar beneficio' }}
+        </button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="panel-kicker">Lista</p>
+          <h2>Beneficios cadastrados</h2>
+        </div>
+        <span class="pill">{{ beneficios.length }} itens</span>
+      </div>
+
+      @if (loading) {
+        <div class="empty-state">
+          <p>Carregando beneficios...</p>
+        </div>
+      } @else if (beneficios.length === 0) {
+        <div class="empty-state">
+          <p>Nenhum beneficio cadastrado ate o momento.</p>
+        </div>
+      } @else {
+        <div class="beneficio-list">
+          @for (beneficio of beneficios; track beneficio.id) {
+            <article class="beneficio-card">
+              <div class="beneficio-main">
+                <div class="beneficio-title-row">
+                  <h3>{{ beneficio.nome }}</h3>
+                  <span class="status-pill" [class.inactive]="!beneficio.ativo">
+                    {{ beneficio.ativo ? 'Ativo' : 'Inativo' }}
+                  </span>
+                </div>
+
+                <p class="beneficio-description">
+                  {{ beneficio.descricao || 'Sem descricao cadastrada.' }}
+                </p>
+
+                <dl class="beneficio-meta">
+                  <div>
+                    <dt>ID</dt>
+                    <dd>#{{ beneficio.id }}</dd>
+                  </div>
+                  <div>
+                    <dt>Valor</dt>
+                    <dd>{{ formatCurrency(beneficio.valor) }}</dd>
+                  </div>
+                  <div>
+                    <dt>Versao</dt>
+                    <dd>{{ beneficio.version }}</dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div class="card-actions">
+                <button
+                  type="button"
+                  class="secondary-button"
+                  (click)="openEditModal(beneficio)"
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  class="secondary-button"
+                  (click)="openTransferModal(beneficio)"
+                  [disabled]="beneficios.length < 2"
+                >
+                  Transferir
+                </button>
+                <button
+                  type="button"
+                  class="danger-button"
+                  (click)="openDeleteModal(beneficio)"
+                >
+                  Excluir
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </section>
   </section>
 </main>
+
+@if (editingBeneficio) {
+  <section class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <p class="panel-kicker">Edicao</p>
+          <h2>Editar beneficio</h2>
+        </div>
+        <button type="button" class="icon-button" (click)="closeEditModal()">Fechar</button>
+      </div>
+
+      <form class="form-grid" [formGroup]="editForm" (ngSubmit)="updateBeneficio()">
+        <label class="field">
+          <span>Nome</span>
+          <input type="text" formControlName="nome" />
+          @if (fieldError(editForm, 'nome')) {
+            <small class="field-error">{{ fieldError(editForm, 'nome') }}</small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Descricao</span>
+          <textarea rows="4" formControlName="descricao"></textarea>
+        </label>
+
+        <div class="form-row">
+          <label class="field">
+            <span>Valor</span>
+            <input type="number" min="0" step="0.01" formControlName="valor" />
+            @if (fieldError(editForm, 'valor')) {
+              <small class="field-error">{{ fieldError(editForm, 'valor') }}</small>
+            }
+          </label>
+
+          <div class="field checkbox-field">
+            <span>Status</span>
+            <label class="toggle" for="edit-ativo">
+              <input id="edit-ativo" type="checkbox" formControlName="ativo" />
+              <span>Beneficio ativo</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-button" (click)="closeEditModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="primary-button" [disabled]="editSubmitting">
+            {{ editSubmitting ? 'Salvando...' : 'Salvar alteracoes' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+}
+
+@if (deletingBeneficio) {
+  <section class="modal-backdrop">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <div>
+          <p class="panel-kicker">Exclusao</p>
+          <h2>Excluir beneficio</h2>
+        </div>
+        <button type="button" class="icon-button" (click)="closeDeleteModal()">Fechar</button>
+      </div>
+
+      <p class="modal-copy">
+        Deseja realmente excluir o beneficio <strong>{{ deletingBeneficio.nome }}</strong>?
+      </p>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" (click)="closeDeleteModal()">
+          Cancelar
+        </button>
+        <button type="button" class="danger-button" (click)="deleteBeneficio()" [disabled]="deleteSubmitting">
+          {{ deleteSubmitting ? 'Excluindo...' : 'Confirmar exclusao' }}
+        </button>
+      </div>
+    </div>
+  </section>
+}
+
+@if (transferringBeneficio) {
+  <section class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <p class="panel-kicker">Transferencia</p>
+          <h2>Transferir valor</h2>
+        </div>
+        <button type="button" class="icon-button" (click)="closeTransferModal()">Fechar</button>
+      </div>
+
+      <p class="modal-copy">
+        Origem: <strong>{{ transferringBeneficio.nome }}</strong>
+      </p>
+
+      <form class="form-grid" [formGroup]="transferForm" (ngSubmit)="transferBeneficio()">
+        <label class="field">
+          <span>Beneficio de destino</span>
+          <select formControlName="beneficioDestinoId">
+            <option [value]="0">Selecione</option>
+            @for (beneficio of transferTargets; track beneficio.id) {
+              <option [value]="beneficio.id">{{ beneficio.nome }}</option>
+            }
+          </select>
+          @if (fieldError(transferForm, 'beneficioDestinoId')) {
+            <small class="field-error">
+              {{ fieldError(transferForm, 'beneficioDestinoId') }}
+            </small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Valor da transferencia</span>
+          <input type="number" min="0.01" step="0.01" formControlName="valor" />
+          @if (fieldError(transferForm, 'valor')) {
+            <small class="field-error">{{ fieldError(transferForm, 'valor') }}</small>
+          }
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-button" (click)="closeTransferModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="primary-button" [disabled]="transferSubmitting">
+            {{ transferSubmitting ? 'Transferindo...' : 'Confirmar transferencia' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+}

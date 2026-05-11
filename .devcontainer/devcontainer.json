@@ -7,7 +7,7 @@
   "shutdownAction": "stopCompose",
   "remoteUser": "vscode",
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  "forwardPorts": [4200, 8080, 5432],
+  "forwardPorts": [4200, 8080],
   "portsAttributes": {
     "4200": {
       "label": "Frontend Angular",
@@ -16,10 +16,6 @@
     "8080": {
       "label": "Backend Spring Boot",
       "onAutoForward": "notify"
-    },
-    "5432": {
-      "label": "PostgreSQL",
-      "onAutoForward": "silent"
     }
   },
   "customizations": {
