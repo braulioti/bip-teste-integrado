@@ -45,7 +45,9 @@ services:
       - "${FRONTEND_PORT:-80}:80"
 
   liquibase:
-    image: liquibase/liquibase:latest
+    build:
+      context: ./db/liquibase
+      dockerfile: Dockerfile
     profiles:
       - migration
     depends_on:
