@@ -4,7 +4,7 @@
 ejb-module/target
 
 # Backend Module
-ejb-module/target
+backend-module/target
 
 
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.

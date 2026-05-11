@@ -2,10 +2,10 @@
   display: block;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  color: #e2e8f0;
+  color: #0f172a;
   background:
-    radial-gradient(circle at top, rgba(37, 99, 235, 0.28), transparent 28%),
-    linear-gradient(180deg, #020617 0%, #0f172a 48%, #111827 100%);
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.1), transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4fb 48%, #f7f9fc 100%);
 }
 
 button,
@@ -28,9 +28,9 @@ button {
 .hero,
 .panel,
 .modal {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  background: rgba(15, 23, 42, 0.85);
-  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.35);
+  border: 1px solid #dbe4f0;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(18px);
 }
 
@@ -46,7 +46,7 @@ button {
 .eyebrow,
 .panel-kicker {
   margin: 0 0 0.5rem;
-  color: #93c5fd;
+  color: #2563eb;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -57,7 +57,7 @@ h1,
 h2,
 h3 {
   margin: 0;
-  color: #f8fafc;
+  color: #0f172a;
 }
 
 h1 {
@@ -77,7 +77,7 @@ h3 {
 .modal-copy,
 .empty-state p {
   margin: 0.75rem 0 0;
-  color: #cbd5e1;
+  color: #475569;
   line-height: 1.6;
 }
 
@@ -114,18 +114,18 @@ h3 {
 }
 
 .pill {
-  background: rgba(37, 99, 235, 0.18);
-  color: #bfdbfe;
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 .status-pill {
-  background: rgba(34, 197, 94, 0.16);
-  color: #86efac;
+  background: #dcfce7;
+  color: #166534;
 }
 
 .status-pill.inactive {
-  background: rgba(248, 113, 113, 0.12);
-  color: #fca5a5;
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .form-grid {
@@ -142,7 +142,7 @@ h3 {
 .field {
   display: grid;
   gap: 0.5rem;
-  color: #cbd5e1;
+  color: #334155;
   font-weight: 700;
 }
 
@@ -151,10 +151,10 @@ h3 {
 .field select {
   width: 100%;
   padding: 0.9rem 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid #cbd5e1;
   border-radius: 0.9rem;
-  background: rgba(15, 23, 42, 0.9);
-  color: #f8fafc;
+  background: #ffffff;
+  color: #0f172a;
   outline: none;
 }
 
@@ -162,7 +162,7 @@ h3 {
 .field textarea:focus,
 .field select:focus {
   border-color: #60a5fa;
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
 }
 
 .checkbox-field {
@@ -175,10 +175,10 @@ h3 {
   align-items: center;
   min-height: 3.25rem;
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid #cbd5e1;
   border-radius: 0.9rem;
-  background: rgba(15, 23, 42, 0.9);
-  color: #e2e8f0;
+  background: #ffffff;
+  color: #334155;
   font-weight: 400;
 }
 
@@ -189,7 +189,7 @@ h3 {
 }
 
 .field-error {
-  color: #fca5a5;
+  color: #dc2626;
   font-size: 0.82rem;
   font-weight: 400;
 }
@@ -217,19 +217,20 @@ h3 {
 
 .primary-button {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #eff6ff;
+  color: #ffffff;
 }
 
 .secondary-button,
 .icon-button,
 .alert-close {
-  background: rgba(148, 163, 184, 0.12);
-  color: #e2e8f0;
+  background: #eff6ff;
+  color: #1e3a8a;
+  border: 1px solid #dbeafe;
 }
 
 .danger-button {
-  background: rgba(239, 68, 68, 0.16);
-  color: #fecaca;
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .primary-button:hover,
@@ -260,15 +261,15 @@ h3 {
 }
 
 .alert-success {
-  background: rgba(34, 197, 94, 0.14);
-  border-color: rgba(34, 197, 94, 0.2);
-  color: #dcfce7;
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #166534;
 }
 
 .alert-error {
-  background: rgba(239, 68, 68, 0.14);
-  border-color: rgba(239, 68, 68, 0.2);
-  color: #fee2e2;
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
 }
 
 .beneficio-list {
@@ -280,9 +281,9 @@ h3 {
   display: grid;
   gap: 1rem;
   padding: 1.25rem;
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  border: 1px solid #e2e8f0;
   border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.62);
+  background: #f8fafc;
 }
 
 .beneficio-title-row,
@@ -306,11 +307,12 @@ h3 {
 .beneficio-meta div {
   padding: 0.8rem;
   border-radius: 0.9rem;
-  background: rgba(30, 41, 59, 0.9);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 .beneficio-meta dt {
-  color: #94a3b8;
+  color: #64748b;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -318,7 +320,7 @@ h3 {
 
 .beneficio-meta dd {
   margin: 0.35rem 0 0;
-  color: #f8fafc;
+  color: #0f172a;
   font-weight: 700;
 }
 
@@ -326,9 +328,9 @@ h3 {
   display: grid;
   place-items: center;
   min-height: 240px;
-  border: 1px dashed rgba(148, 163, 184, 0.24);
+  border: 1px dashed #cbd5e1;
   border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.36);
+  background: #f8fafc;
   text-align: center;
 }
 
@@ -338,7 +340,7 @@ h3 {
   display: grid;
   place-items: center;
   padding: 1.5rem;
-  background: rgba(2, 6, 23, 0.72);
+  background: rgba(15, 23, 42, 0.22);
   z-index: 1000;
 }
 

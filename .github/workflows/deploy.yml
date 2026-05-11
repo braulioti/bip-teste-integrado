@@ -45,7 +45,7 @@ jobs:
           rm -rf deploy_bundle/frontend/node_modules
           rm -rf deploy_bundle/frontend/dist
 
-      - name: Ensure remote deploy directory exists
+      - name: Prepare remote deploy directory
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -54,6 +54,12 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           script: |
             mkdir -p "${{ secrets.DEPLOY_PATH }}"
+            rm -rf "${{ secrets.DEPLOY_PATH }}/backend-module"
+            rm -rf "${{ secrets.DEPLOY_PATH }}/ejb-module"
+            rm -rf "${{ secrets.DEPLOY_PATH }}/frontend"
+            rm -rf "${{ secrets.DEPLOY_PATH }}/db"
+            rm -f "${{ secrets.DEPLOY_PATH }}/pom.xml"
+            rm -f "${{ secrets.DEPLOY_PATH }}/docker-compose.prod.yml"
 
       - name: Upload application bundle
         uses: appleboy/scp-action@v0.1.7
