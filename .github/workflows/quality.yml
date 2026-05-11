@@ -61,9 +61,28 @@ jobs:
             frontend/coverage/lcov.info
             frontend/coverage/cobertura-coverage.xml
 
-      - name: Upload coverage to Codacy
+      - name: Upload backend coverage to Codacy
         if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ env.CODACY_PROJECT_TOKEN }}
-          coverage-reports: backend-module/target/site/jacoco/jacoco.xml,frontend/coverage/lcov.info
+        shell: bash
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+            --partial \
+            -t "${CODACY_PROJECT_TOKEN}" \
+            -l Java \
+            -r backend-module/target/site/jacoco/jacoco.xml
+
+      - name: Upload frontend coverage to Codacy
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
+        shell: bash
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+            --partial \
+            -t "${CODACY_PROJECT_TOKEN}" \
+            -r frontend/coverage/lcov.info
+
+      - name: Finalize Codacy coverage upload
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
+        shell: bash
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) final \
+            -t "${CODACY_PROJECT_TOKEN}"
