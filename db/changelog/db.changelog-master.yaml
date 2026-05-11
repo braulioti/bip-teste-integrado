@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-schema
+      author: brau
+      changes:
+        - sqlFile:
+            path: ../schema.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: false
+            endDelimiter: ;
+
+  - changeSet:
+      id: 002-seed
+      author: brau
+      context: seed
+      changes:
+        - sqlFile:
+            path: ../seed.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: false
+            endDelimiter: ;

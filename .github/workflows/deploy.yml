@@ -25,6 +25,7 @@ jobs:
           rm -rf deploy_bundle
           mkdir -p deploy_bundle
           cp docker-compose.prod.yml deploy_bundle/docker-compose.prod.yml
+          cp -R db deploy_bundle/db
           cp -R backend-module deploy_bundle/backend-module
           cp -R frontend deploy_bundle/frontend
           rm -rf deploy_bundle/backend-module/target
@@ -70,3 +71,21 @@ jobs:
 
             docker compose -f docker-compose.prod.yml --env-file .env up -d --build --remove-orphans
             docker image prune -f
+
+      - name: Apply Liquibase schema migrations
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: |
+            set -eu
+            cd "${{ secrets.DEPLOY_PATH }}"
+
+            if [ ! -f .env ]; then
+              echo "Missing .env file in ${{ secrets.DEPLOY_PATH }}"
+              exit 1
+            fi
+
+            docker compose -f docker-compose.prod.yml --env-file .env --profile migration run --rm liquibase

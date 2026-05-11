@@ -29,9 +29,10 @@ Este é um teste proposto pela BIP Brasil. Neste teste você vai encontrar boas 
 ### Como o deploy funciona
 
 1. O GitHub Actions faz checkout do repositorio.
-2. Monta um pacote com `backend-module`, `frontend` e `docker-compose.prod.yml`.
+2. Monta um pacote com `db`, `backend-module`, `frontend` e `docker-compose.prod.yml`.
 3. Envia esse pacote para o servidor por SSH.
 4. Executa `docker compose` no servidor usando o arquivo `.env` que deve existir no destino.
+5. Roda o Liquibase apos o deploy para aplicar o changelog de schema em `db/changelog/db.changelog-master.yaml`.
 
 ### Secrets necessarios no GitHub
 
